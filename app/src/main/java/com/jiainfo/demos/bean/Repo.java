@@ -1,4 +1,4 @@
-package com.jiainfo.demos.retrofit;
+package com.jiainfo.demos.bean;
 
 /**
  *

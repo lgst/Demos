@@ -6,8 +6,8 @@ import android.view.View;
 import android.widget.TextView;
 
 import com.jiainfo.demos.R;
+import com.jiainfo.demos.bean.Repo;
 
-import java.io.IOException;
 import java.util.List;
 
 import retrofit2.Call;
@@ -15,12 +15,9 @@ import retrofit2.Callback;
 import retrofit2.Response;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
-import retrofit2.http.Body;
 import retrofit2.http.GET;
-import retrofit2.http.POST;
 import retrofit2.http.Path;
 import rx.Observable;
-import rx.Subscriber;
 
 /**
  * @author lyg
@@ -64,9 +61,10 @@ public class RetrofitActivity extends AppCompatActivity {
         mTvText = findViewById(R.id.tv_text);
     }
 
-    interface GitHubService {
+    public interface GitHubService {
         @GET("users/{user}/repos")
         Call<List<Repo>> listRepos(@Path("user") String user);
-
+        @GET("users/{user}/repos")
+        Observable<List<Repo>> listReposRx(@Path("user") String user);
     }
 }
