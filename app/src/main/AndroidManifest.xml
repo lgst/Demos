@@ -18,6 +18,8 @@
         <activity android:name=".rx.RxAndroidActivity">
         </activity>
         <activity android:name=".rx_retrofit.RxJavaRetrofitActivity">
+        </activity>
+        <activity android:name=".custom_view.CustomViewActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN"/>
 

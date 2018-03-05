@@ -9,18 +9,16 @@ import com.jiainfo.demos.R;
 import com.jiainfo.demos.bean.Repo;
 import com.jiainfo.demos.bean.User;
 import com.jiainfo.demos.retrofit.RetrofitActivity;
-import com.qmuiteam.qmui.widget.QMUILoadingView;
-import com.qmuiteam.qmui.widget.dialog.QMUITipDialog;
 
 import java.io.IOException;
 import java.util.ArrayList;
 import java.util.List;
 
-import retrofit2.Call;
+import butterknife.BindView;
+import butterknife.ButterKnife;
 import retrofit2.Retrofit;
 import retrofit2.converter.gson.GsonConverterFactory;
 import rx.Observable;
-import rx.Observer;
 import rx.Subscriber;
 import rx.android.schedulers.AndroidSchedulers;
 import rx.functions.Action1;
@@ -35,7 +33,8 @@ import rx.schedulers.Schedulers;
  */
 public class RxAndroidActivity extends AppCompatActivity {
 
-    private TextView mTvText;
+    @BindView(R.id.tv_text)
+    TextView mTvText;
     private Subscriber<String> subscriber;
     List<User> users = new ArrayList<>();
 
@@ -43,6 +42,7 @@ public class RxAndroidActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_rx_android);
+        ButterKnife.bind(this);
         initView();
         users.add(new User("Bob", 17));
         users.add(new User("Gru", 23));
@@ -113,7 +113,7 @@ public class RxAndroidActivity extends AppCompatActivity {
                 .subscribe(new Action1<String>() {
                     @Override
                     public void call(String s) {
-                        mTvText.append(s+"\n");
+                        mTvText.append(s + "\n");
                     }
                 });
     }
@@ -121,7 +121,7 @@ public class RxAndroidActivity extends AppCompatActivity {
 
     public void flatMapClick(View view) {
         mTvText.setText(null);
-        String[] users = {"lgst","mcxiaoke","houjixin"};
+        String[] users = {"lgst", "mcxiaoke", "houjixin"};
         Retrofit retrofit = new Retrofit.Builder()
                 .addConverterFactory(GsonConverterFactory.create())
                 .baseUrl("https://api.github.com/")
@@ -134,7 +134,7 @@ public class RxAndroidActivity extends AppCompatActivity {
                         List<Repo> repoList = new ArrayList<>();
                         try {
                             List<Repo> repos = service.listRepos(s).execute().body();
-                            if (repos!=null){
+                            if (repos != null) {
                                 repoList.addAll(repos);
                             }
                         } catch (IOException e) {
@@ -148,7 +148,7 @@ public class RxAndroidActivity extends AppCompatActivity {
                 .subscribe(new Action1<Repo>() {
                     @Override
                     public void call(Repo repo) {
-                        mTvText.append(repo.getName()+"\n");
+                        mTvText.append(repo.getName() + "\n");
                     }
                 });
     }
